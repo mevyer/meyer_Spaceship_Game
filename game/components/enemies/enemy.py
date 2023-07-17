@@ -2,16 +2,16 @@ import pygame
 from random import randint
 from pygame.sprite import Sprite
 
-from game.utils.constants import ENEMY_1, SHIP_WIDTH, SHIP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
+from game.utils.constants import SHIP_WIDTH, SHIP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 
-class Enemy:
+class Enemy(Sprite):
     Y_POS = 20
     SPEED_X = 5
     SPEED_Y = 1
     MOV_X = {0: 'left', 1: 'right'}
 
-    def __init__(self) -> None:
-        self.image = ENEMY_1
+    def __init__(self, image) -> None:
+        self.image = image
         self.image = pygame.transform.scale(self.image, (SHIP_WIDTH, SHIP_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.x = randint(0, SCREEN_WIDTH)
