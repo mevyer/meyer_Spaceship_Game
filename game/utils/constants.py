@@ -1,5 +1,6 @@
 import pygame
 import os
+from random import randint
 
 # Global Constants
 TITLE = "Spaceships Game"
@@ -30,5 +31,19 @@ SHIP_HEIGHT = 60
 BULLET_ENEMY = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_2.png"))
 ENEMY_1 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_1.png"))
 ENEMY_2 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png"))
+ENEMIES = [
+    {
+        'image': ENEMY_1,
+        'speed_x': 5,
+        'speed_y': 1,
+        'shooting_interval': 1000,
+    }, 
+    {
+        'image': ENEMY_2,
+        'speed_x': 7,
+        'speed_y': 2,
+        'shooting_interval': 250
+    }, 
+]
 
 FONT_STYLE = 'freesansbold.ttf'

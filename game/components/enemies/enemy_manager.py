@@ -1,7 +1,7 @@
-from random import choice
+from random import choice, randint
 
 from game.components.enemies.enemy import Enemy
-from game.utils.constants import ENEMY_1, ENEMY_2
+from game.utils.constants import ENEMIES
 
 class EnemyManager:
     def __init__(self):
@@ -18,9 +18,11 @@ class EnemyManager:
             enemy.draw(screen)
 
     def add_enemy(self):
-        if len(self.enemies) < 1:
-            enemy = Enemy(self.get_random_enemy_image())
+        if len(self.enemies) < 2:
+            enemy = Enemy(*self.get_random_enemy_data())
             self.enemies.append(enemy)
 
-    def get_random_enemy_image(self):
-        return choice([ENEMY_1, ENEMY_2])
+    def get_random_enemy_data(self):
+        enemy = choice(ENEMIES)
+        return enemy.values()
+    
