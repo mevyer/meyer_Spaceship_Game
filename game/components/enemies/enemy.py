@@ -23,15 +23,12 @@ class Enemy(Sprite):
         self.movement_x_for = randint(30, 40)
         self.step = 0
         self.type = 'enemy'
-        self.bullets = []
-        self.bullet_manager = BulletManager(self)
         self.last_shoot_time = 0
         self.shooting_interval = shooting_interval
 
     def update(self, enemies, game):
-        self.bullet_manager.update(game)
         self.rect.y += self.speed_y
-        self.shoot()
+        self.shoot(game.bullet_manager)
         if self.movement_x == 'left':
             self.rect.x -= self.speed_x
         else:
@@ -42,14 +39,13 @@ class Enemy(Sprite):
             enemies.remove(self)
 
     def draw(self, screen):
-        self.bullet_manager.draw(screen)
         screen.blit(self.image, self.rect)
 
-    def shoot(self):
+    def shoot(self, bullet_manager):
         current_time = pygame.time.get_ticks()
-        if current_time - self.last_shoot_time >= self.shooting_interval and len(self.bullets) < 2:
+        if current_time - self.last_shoot_time >= self.shooting_interval:
             bullet = Bullet(self)
-            self.bullets.append(bullet)
+            bullet_manager.add_bullet(bullet)
             self.last_shoot_time = current_time
 
     def change_movement_x(self):

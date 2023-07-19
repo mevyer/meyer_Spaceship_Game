@@ -42,8 +42,13 @@ ENEMIES = [
         'image': ENEMY_2,
         'speed_x': 7,
         'speed_y': 2,
-        'shooting_interval': 250
+        'shooting_interval': 500
     }, 
 ]
 
 FONT_STYLE = 'freesansbold.ttf'
+
+COLORS = {
+    'WHITE': (255, 255, 255),
+    'BLACK': (0, 0, 0),
+}
