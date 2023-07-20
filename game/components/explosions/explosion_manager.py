@@ -4,13 +4,16 @@ class ExplosionManager:
     def __init__(self):
         self.explosions = []
 
-    def update(self):
+    def update(self, game):
         for explosion in self.explosions:
             explosion.update()
 
             now = pygame.time.get_ticks()
             if now >= explosion.life:
-                self.explosions.remove(explosion)
+                if explosion.owner == 'player':
+                    game.game_over()
+                else:
+                    self.explosions.remove(explosion)
                 
 
     def draw(self, screen):

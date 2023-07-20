@@ -71,7 +71,7 @@ class Game:
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
         self.power_up_manager.update(self)
-        self.explotion_manager.update()
+        self.explotion_manager.update(self)
 
     def draw(self):
         self.clock.tick(FPS)

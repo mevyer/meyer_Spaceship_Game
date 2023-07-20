@@ -12,10 +12,9 @@ class BulletManager:
             bullet.update(self.enemy_bullets)
 
             if bullet.rect.colliderect(game.player.rect) and bullet.owner.type == 'enemy':
+                explosion = Explosion(game.player)
+                game.explotion_manager.add_explosion(explosion)
                 self.enemy_bullets.remove(bullet)
-
-                if not game.player.has_power_up:
-                    game.game_over()
         
         for bullet in self.player_bullets:
             bullet.update(self.player_bullets)
