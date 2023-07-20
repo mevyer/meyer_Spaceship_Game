@@ -6,10 +6,10 @@ from game.utils.constants import SCREEN_HEIGHT, POWER_UP_SOUND
 
 
 class PowerUp(Sprite):
-
+    
     def __init__(self, image, type):
         self.image = image
-        self.type  = type
+        self.type = type
         self.rect = self.image.get_rect()
         self.rect.x = randint(100, SCREEN_HEIGHT - 100)
         self.rect.y = 0
