@@ -1,8 +1,10 @@
 import pygame
+import os
+import pickle
 from pygame.sprite import Sprite
 
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, SHIP_WIDTH, SHIP_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, DEFAULT_TYPE, SPACESHIP_SHOOT_SOUND
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, SHIP_WIDTH, SHIP_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, DEFAULT_TYPE, SPACESHIP_SHOOT_SOUND, ROOT_DIR
 
 class Spaceship(Sprite):
     X_POS = SCREEN_WIDTH_CENTER - SHIP_WIDTH
@@ -28,6 +30,8 @@ class Spaceship(Sprite):
         self.power_up_type = DEFAULT_TYPE
         self.has_power_up = False
         self.power_time_up = 0
+
+        self.load_highest_score()
 
     def update(self, user_input, game):
         if user_input[pygame.K_LEFT]:
@@ -82,3 +86,16 @@ class Spaceship(Sprite):
     def set_image(self, size = (40, 60), image = SPACESHIP):
         self.image = image
         self.image = pygame.transform.scale(self.image, size)
+
+    def load_highest_score(self):
+        try:
+            with open("data/score.bin", "rb") as file:
+                self.highest_score = pickle.load(file)
+        except:
+            return 0
+
+    def save_highest_score(self):
+        if not os.path.exists("data"):
+            os.makedirs("data")
+        with open("data/score.bin", "wb") as file:
+            pickle.dump(self.highest_score, file)

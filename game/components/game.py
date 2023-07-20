@@ -45,6 +45,7 @@ class Game:
             if not self.playing:
                 self.show_menu()
         
+        self.player.save_highest_score()
         pygame.display.quit()
         pygame.quit()
 

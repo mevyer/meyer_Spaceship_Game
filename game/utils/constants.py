@@ -10,7 +10,8 @@ SCREEN_HEIGHT_CENTER = SCREEN_HEIGHT // 2
 SCREEN_WIDTH_CENTER = SCREEN_WIDTH // 2
 
 FPS = 30
-IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets/img")
+ROOT_DIR = os.path.join(os.path.dirname(__file__), "../..")
+IMG_DIR = os.path.join(os.path.dirname(__file__), ROOT_DIR, "game/assets/img")
 
 # Assets Constants
 ICON = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
