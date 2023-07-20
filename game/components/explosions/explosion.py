@@ -1,13 +1,14 @@
 import pygame
 from pygame.sprite import Sprite
 
-from game.utils.constants import EXPLOSION
+from game.utils.constants import EXPLOSION, EXPLOSION_SOUND
 
 
 class Explosion(Sprite):
     
     def __init__(self, spaceship):
         self.image = EXPLOSION
+        self.sound = pygame.mixer.Sound(EXPLOSION_SOUND)
         self.rect = self.image.get_rect()
         self.rect.center = spaceship.rect.center
         self.life = pygame.time.get_ticks() + 200

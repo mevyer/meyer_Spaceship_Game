@@ -1,6 +1,6 @@
 import pygame
 import os
-from random import randint
+
 
 # Global Constants
 TITLE = "Spaceships Game"
@@ -10,7 +10,7 @@ SCREEN_HEIGHT_CENTER = SCREEN_HEIGHT // 2
 SCREEN_WIDTH_CENTER = SCREEN_WIDTH // 2
 
 FPS = 30
-IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
+IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets/img")
 
 # Assets Constants
 ICON = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
@@ -57,3 +57,16 @@ COLORS = {
     'WHITE': (255, 255, 255),
     'BLACK': (0, 0, 0),
 }
+
+
+# Sounds
+
+AUDIO_DIR = os.path.join(os.path.dirname(__file__), "..", "assets/audio")
+
+SPACESHIP_SHOOT_SOUND = os.path.join(AUDIO_DIR, "spaceship_shoot.wav")
+POWER_UP_SOUND = os.path.join(AUDIO_DIR, "power_up.wav")
+GAME_OVER_SOUND = os.path.join(AUDIO_DIR, "game_over.wav")
+OPENER_SOUND = os.path.join(AUDIO_DIR, "game_opener.wav")
+EXPLOSION_SOUND = os.path.join(AUDIO_DIR, "explosion.wav")
+
+BACKGROUND_SOUND = os.path.join(AUDIO_DIR, "menu.mp3")

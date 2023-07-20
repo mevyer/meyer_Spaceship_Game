@@ -2,7 +2,7 @@ import pygame
 from random import randint
 from pygame.sprite import Sprite
 
-from game.utils.constants import SCREEN_HEIGHT
+from game.utils.constants import SCREEN_HEIGHT, POWER_UP_SOUND
 
 
 class PowerUp(Sprite):
@@ -15,6 +15,7 @@ class PowerUp(Sprite):
         self.rect.y = 0
         self.start_time = 0
         self.duration = randint(1, 5)
+        self.sound = pygame.mixer.Sound(POWER_UP_SOUND)
 
     def update(self, game_speed, power_ups):
         self.rect.y += game_speed

@@ -2,7 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, SHIP_WIDTH, SHIP_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, DEFAULT_TYPE
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, SHIP_WIDTH, SHIP_HEIGHT, SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER, DEFAULT_TYPE, SPACESHIP_SHOOT_SOUND
 
 class Spaceship(Sprite):
     X_POS = SCREEN_WIDTH_CENTER - SHIP_WIDTH
@@ -21,6 +21,7 @@ class Spaceship(Sprite):
         self.death_count = 0
 
         self.type = 'player'
+        self.sound = pygame.mixer.Sound(SPACESHIP_SHOOT_SOUND)
         self.last_shoot_time = 0
         self.shooting_interval = 250
 
@@ -40,6 +41,10 @@ class Spaceship(Sprite):
         if user_input[pygame.K_SPACE]:
             self.shoot(game.bullet_manager)
 
+        for enemy in game.enemy_manager.enemies:
+            if self.rect.colliderect(enemy.rect) and not self.has_power_up:
+                game.game_over()
+
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
@@ -47,6 +52,7 @@ class Spaceship(Sprite):
         current_time = pygame.time.get_ticks()
         if current_time - self.last_shoot_time >= self.shooting_interval:
             bullet = Bullet(self)
+            self.sound.play()
             bullet_manager.add_bullet(bullet)
             self.last_shoot_time = current_time
 

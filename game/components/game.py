@@ -1,6 +1,6 @@
 import pygame
 
-from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE, COLORS, DEFAULT_TYPE
+from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE, COLORS, DEFAULT_TYPE, GAME_OVER_SOUND, OPENER_SOUND, BACKGROUND_SOUND
 from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.bullets.bullet_manager import BulletManager
@@ -12,7 +12,10 @@ from game.components.explosions.explosion_manager import ExplosionManager
 class Game:
 
     def __init__(self):
+        ## Initialize pygame
+        pygame.mixer.pre_init(44100, 32, 2, 1024)
         pygame.init()
+
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -26,9 +29,14 @@ class Game:
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
         self.running = False
-        self.menu = Menu(["Press [ENTER] to start..."], self.screen)
+        self.menu = Menu(["Press [ENTER] to play"], self.screen)
         self.power_up_manager = PowerUpManager()
         self.explotion_manager = ExplosionManager()
+        self.opener_sound = pygame.mixer.Sound(OPENER_SOUND)
+        self.game_over_sound = pygame.mixer.Sound(GAME_OVER_SOUND)
+
+        pygame.mixer.music.load(BACKGROUND_SOUND)
+        pygame.mixer.music.play(100)
 
     def execute(self):
         self.running = True
@@ -43,6 +51,8 @@ class Game:
     def run(self):
         # Game loop: events - update - draw
         self.playing = True
+        pygame.mixer.music.pause()
+        self.opener_sound.play()
         while self.playing:
             self.events()
             self.update()
@@ -87,6 +97,7 @@ class Game:
         self.y_pos_bg += self.game_speed
 
     def show_menu(self):
+        pygame.mixer.music.unpause()
         self.menu.reset_screen_color(self.screen)
         
         if self.player.death_count == 0:
@@ -115,7 +126,7 @@ class Game:
             time_to_show = round((self.player.power_time_up - pygame.time.get_ticks()) / 1000, 2)
 
             if time_to_show >= 0:
-                text = self.font.render(f'{self.player.power_up_type}: {time_to_show}', True, COLORS['WHITE'])
+                text = self.font.render(f'{self.player.power_up_type.capitalize()}: {time_to_show}', True, COLORS['WHITE'])
                 text_rect = text.get_rect()
                 text_rect = (50, 25)
                 self.screen.blit(text, text_rect)
@@ -131,6 +142,7 @@ class Game:
         if self.player.score > self.player.highest_score:
             self.player.highest_score = self.player.score
 
+        self.game_over_sound.play()
         pygame.time.delay(1000)
 
         self.reset()

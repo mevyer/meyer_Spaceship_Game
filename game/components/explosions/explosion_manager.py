@@ -18,6 +18,7 @@ class ExplosionManager:
             explosion.draw(screen)
 
     def add_explosion(self, explosion):
+        explosion.sound.play()
         self.explosions.append(explosion)
 
     def reset(self):

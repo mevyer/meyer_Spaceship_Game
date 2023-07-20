@@ -9,6 +9,7 @@ class Menu:
         self.font = pygame.font.Font(FONT_STYLE, 30)
         self.text_lines = [self.font_render(line, COLORS['BLACK']) for line in lines]
 
+
     def update(self, game):
         pygame.display.update()
         self.handle_event_on_menu(game)
