@@ -1,5 +1,7 @@
 import pygame
 
+from game.components.explosions.explosion import Explosion
+
 class BulletManager:
     def __init__(self):
         self.enemy_bullets = []
@@ -21,6 +23,8 @@ class BulletManager:
             for enemy in game.enemy_manager.enemies:
                 if bullet.rect.colliderect(enemy.rect) and bullet.owner.type == 'player':
                     self.player_bullets.remove(bullet)
+                    explosion = Explosion(enemy)
+                    game.explotion_manager.add_explosion(explosion)
                     game.enemy_manager.enemies.remove(enemy)
                     game.player.score += 1
 

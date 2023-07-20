@@ -6,6 +6,7 @@ from game.components.enemies.enemy_manager import EnemyManager
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.menu import Menu
 from game.components.power_ups.power_up_manager import PowerUpManager
+from game.components.explosions.explosion_manager import ExplosionManager
 
 
 class Game:
@@ -25,8 +26,9 @@ class Game:
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
         self.running = False
-        self.menu = Menu(["Press any key to start..."], self.screen)
+        self.menu = Menu(["Press [ENTER] to start..."], self.screen)
         self.power_up_manager = PowerUpManager()
+        self.explotion_manager = ExplosionManager()
 
     def execute(self):
         self.running = True
@@ -58,6 +60,7 @@ class Game:
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
         self.power_up_manager.update(self)
+        self.explotion_manager.update()
 
     def draw(self):
         self.clock.tick(FPS)
@@ -67,6 +70,7 @@ class Game:
         self.enemy_manager.draw(self.screen)
         self.bullet_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
+        self.explotion_manager.draw(self.screen)
         self.draw_power_up_time()
         self.draw_score()
         pygame.display.update()
@@ -89,7 +93,7 @@ class Game:
             self.menu.draw(self.screen)
         else:
             lines = [
-                'Game Over. Press any key to restart',
+                'Game Over. Press [ENTER] to restart',
                 f'Your score: {self.player.score}',
                 f'Highest score: {self.player.highest_score}',
                 f'Total deaths: {self.player.death_count}',
@@ -136,3 +140,4 @@ class Game:
         self.bullet_manager.reset()
         self.player.reset()
         self.power_up_manager.reset()
+        self.explotion_manager.reset()

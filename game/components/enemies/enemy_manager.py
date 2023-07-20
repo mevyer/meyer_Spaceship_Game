@@ -1,7 +1,7 @@
 from random import choice
 
 from game.components.enemies.enemy import Enemy
-from game.utils.constants import ENEMIES
+from game.utils.constants import ENEMIES, EXPLOSION
 
 class EnemyManager:
     def __init__(self):
