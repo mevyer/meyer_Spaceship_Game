@@ -12,7 +12,8 @@ class BulletManager:
             if bullet.rect.colliderect(game.player.rect) and bullet.owner.type == 'enemy':
                 self.enemy_bullets.remove(bullet)
 
-                game.game_over()
+                if not game.player.has_power_up:
+                    game.game_over()
         
         for bullet in self.player_bullets:
             bullet.update(self.player_bullets)
@@ -34,3 +35,7 @@ class BulletManager:
             self.player_bullets.append(bullet)
         elif bullet.owner.type == 'enemy' and len(self.enemy_bullets) < 4:
             self.enemy_bullets.append(bullet)
+
+    def reset(self):
+        self.enemy_bullets = []
+        self.player_bullets = []

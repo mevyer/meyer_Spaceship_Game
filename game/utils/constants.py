@@ -6,6 +6,9 @@ from random import randint
 TITLE = "Spaceships Game"
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
+SCREEN_HEIGHT_CENTER = SCREEN_HEIGHT // 2
+SCREEN_WIDTH_CENTER = SCREEN_WIDTH // 2
+
 FPS = 30
 IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 

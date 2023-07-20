@@ -1,6 +1,6 @@
 import pygame
 
-from game.utils.constants import FONT_STYLE, SCREEN_WIDTH, SCREEN_HEIGHT, ICON, COLORS
+from game.utils.constants import FONT_STYLE, ICON, COLORS, SCREEN_HEIGHT_CENTER, SCREEN_WIDTH_CENTER
 
 class Menu:
     def __init__(self, lines, screen):
@@ -14,11 +14,11 @@ class Menu:
         self.handle_event_on_menu(game)
 
     def draw(self, screen):
-        screen.blit(self.icon, ((SCREEN_WIDTH // 2) - 40, (SCREEN_HEIGHT // 2) - 150))
+        screen.blit(self.icon, (SCREEN_WIDTH_CENTER - 40, SCREEN_HEIGHT_CENTER - 150))
         counter = 0
         for line in self.text_lines:
             line_rect = line.get_rect()
-            line_rect.center = (SCREEN_WIDTH // 2, (SCREEN_HEIGHT // 2) + counter)
+            line_rect.center = (SCREEN_WIDTH_CENTER, SCREEN_HEIGHT_CENTER + counter)
             screen.blit(line, line_rect)
             counter += 40
 
@@ -31,7 +31,7 @@ class Menu:
                 game.run()
 
     def reset_screen_color(self, screen):
-        screen.fill((255, 255, 255))
+        screen.fill(COLORS['WHITE'])
 
     def update_message(self, lines):
         self.text_lines = [self.font_render(line, COLORS['BLACK']) for line in lines]

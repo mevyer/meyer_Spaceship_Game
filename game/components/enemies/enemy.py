@@ -4,7 +4,6 @@ from pygame.sprite import Sprite
 
 from game.utils.constants import SHIP_WIDTH, SHIP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 from game.components.bullets.bullet import Bullet
-from game.components.bullets.bullet_manager import BulletManager
 
 class Enemy(Sprite):
     Y_POS = 20
