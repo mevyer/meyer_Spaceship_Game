@@ -14,6 +14,7 @@ class ExplosionManager:
             if now >= explosion.life:
                 if explosion.spaceship.type == "player":
                     game.game_over()
+                    break
                 else:
                     self.explosions.remove(explosion)
 
